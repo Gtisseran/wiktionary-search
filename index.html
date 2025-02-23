@@ -12,7 +12,7 @@
             text-align: center;
             background: #f8f9fa;
         }
-        
+
         /* Conteneur principal */
         .container {
             display: flex;
@@ -23,7 +23,21 @@
             transition: margin-top 0.5s;
         }
 
-        /* Nom du site au-dessus de la barre */
+        /* Lien vers Wikipédia */
+        #wiki-link {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #0366d6;
+        }
+
+        #wiki-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Nom du site */
         #site-name {
             font-size: 28px;
             font-weight: bold;
@@ -41,7 +55,7 @@
             width: 400px;
             background: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, top 0.5s, width 0.3s;
+            transition: transform 0.3s, top 0.5s, width 0.3s, box-shadow 0.3s;
             position: relative;
         }
 
@@ -51,6 +65,12 @@
             flex: 1;
             font-size: 18px;
             padding: 5px;
+            transition: all 0.3s;
+        }
+
+        /* Animation quand on clique sur la barre */
+        .search-container:focus-within {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .search-container button {
@@ -60,22 +80,14 @@
         }
 
         .search-container img {
-            width: 22px;
-            height: 22px;
-        }
-
-        /* Titre du résultat */
-        #dynamic-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 15px;
-            display: none;
+            width: 24px;
+            height: 24px;
         }
 
         /* Zone des résultats */
         #results {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
             text-align: left;
             padding: 20px;
             display: none;
@@ -97,7 +109,7 @@
             width: 300px;
         }
 
-        /* Supprime les parties inutiles */
+        /* Nettoyage du texte Wikipédia */
         .result .infobox, 
         .result .navbox, 
         .result .metadata, 
@@ -106,9 +118,21 @@
             display: none !important;
         }
 
+        /* Changer la couleur des liens en noir */
+        .result a {
+            color: black !important;
+            text-decoration: underline;
+        }
+
+        /* Afficher les liens normalement au survol */
+        .result a:hover {
+            color: #0366d6 !important;
+        }
     </style>
 </head>
 <body>
+
+    <a id="wiki-link" href="https://fr.wikipedia.org" target="_blank">🌍 Aller sur Wikipédia</a>  
 
     <div class="container" id="main-container">
         <div id="site-name">WikiSearch</div> <!-- Nom du site -->
@@ -118,7 +142,6 @@
                 <img id="search-icon" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Magnifying_glass_icon.svg" alt="Loupe">
             </button>
         </div>
-        <h1 id="dynamic-title"></h1> <!-- Titre du résultat -->
     </div>
 
     <div id="results"></div>
@@ -137,51 +160,8 @@
                     resultsDiv.innerHTML = "";
 
                     if (data.parse) {
-                        let title = data.parse.title;
                         let content = data.parse.text["*"];
 
                         // Nettoyage du contenu
                         let tempDiv = document.createElement("div");
-                        tempDiv.innerHTML = content;
-
-                        // Supprimer les parties inutiles
-                        tempDiv.querySelectorAll(".infobox, .navbox, .metadata, .reference, .mw-editsection").forEach(el => el.remove());
-
-                        // Cacher "WikiSearch"
-                        document.getElementById("site-name").style.opacity = "0";
-
-                        // Déplacer la barre de recherche en haut
-                        document.getElementById("search-box").classList.add("moved");
-
-                        // Mettre à jour le titre du résultat
-                        let dynamicTitle = document.getElementById("dynamic-title");
-                        dynamicTitle.innerText = title;
-                        dynamicTitle.style.display = "block";
-                        dynamicTitle.style.marginTop = "5px"; // Réduction de l'espace
-
-                        // Afficher le résultat nettoyé
-                        let result = document.createElement("div");
-                        result.classList.add("result");
-                        result.innerHTML = `<div>${tempDiv.innerHTML}</div>`;
-
-                        resultsDiv.appendChild(result);
-                        resultsDiv.style.display = "block";
-                        resultsDiv.style.marginTop = "10px"; // Réduction de l'espace
-                    } else {
-                        resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
-                    }
-                })
-                .catch(error => {
-                    document.getElementById("results").innerHTML = "<p>Erreur lors de la récupération des données.</p>";
-                });
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === "Enter") {
-                searchWiki();
-            }
-        }
-    </script>
-
-</body>
-</html>
+                        tempDiv.innerHTML = conte
