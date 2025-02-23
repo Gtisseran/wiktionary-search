@@ -8,35 +8,48 @@
         body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
         input { width: 80%; padding: 10px; margin: 10px; font-size: 16px; }
         button { padding: 10px; font-size: 16px; cursor: pointer; }
-        ul { list-style: none; padding: 0; }
-        li { margin: 10px 0; }
+        .result { text-align: left; max-width: 800px; margin: auto; padding: 10px; border-bottom: 1px solid #ddd; }
+        .result h2 { margin: 0; }
+        .result p { color: #555; }
+        .result a { display: block; margin-top: 5px; color: blue; text-decoration: none; }
     </style>
 </head>
 <body>
     <h1>Recherche Wikipédia</h1>
     <input type="text" id="search" placeholder="Rechercher un sujet...">
     <button onclick="searchWiki()">Rechercher</button>
-    <ul id="results"></ul>
+    <div id="results"></div>
 
     <script>
         function searchWiki() {
             let query = document.getElementById("search").value;
-            let url = `https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch=${query}&format=json&origin=*`;
+            let url = `https://fr.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
 
             fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    let results = data.query.search;
-                    let resultList = document.getElementById("results");
-                    resultList.innerHTML = "";
-
-                    results.forEach(result => {
-                        let li = document.createElement("li");
-                        li.innerHTML = `<a href="https://fr.wikipedia.org/wiki/${result.title}" target="_blank">${result.title}</a>`;
-                        resultList.appendChild(li);
-                    });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Aucun résultat trouvé.");
+                    }
+                    return response.json();
                 })
-                .catch(error => console.error("Erreur :", error));
+                .then(data => {
+                    let resultsDiv = document.getElementById("results");
+                    resultsDiv.innerHTML = "";
+
+                    let result = document.createElement("div");
+                    result.classList.add("result");
+
+                    result.innerHTML = `
+                        <h2>${data.title}</h2>
+                        <p>${data.extract}</p>
+                        <a href="${data.content_urls.desktop.page}" target="_blank">Lire sur Wikipédia</a>
+                    `;
+
+                    resultsDiv.appendChild(result);
+                })
+                .catch(error => {
+                    document.getElementById("results").innerHTML = "<p>Aucun résultat trouvé.</p>";
+                });
         }
     </script>
 </body>
