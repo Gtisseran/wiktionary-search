@@ -49,6 +49,7 @@
 
         /* Lien vers Wikipédia */
         #wiki-link {
+            display: none;
             position: absolute;
             top: 10px;
             right: 10px;
@@ -86,11 +87,6 @@
             transition: color 0.3s;
         }
 
-        /* Animation quand on clique sur la barre */
-        .search-container:focus-within {
-            box-shadow: 0 4px 10px var(--box-shadow);
-        }
-
         .search-container button {
             background: none;
             border: none;
@@ -100,6 +96,7 @@
         .search-container img {
             width: 24px;
             height: 24px;
+            cursor: pointer;
         }
 
         /* Zone des résultats */
@@ -129,7 +126,7 @@
 <body>
 
     <button id="theme-toggle" onclick="toggleTheme()">🌙</button>  
-    <a id="wiki-link" href="https://fr.wikipedia.org" target="_blank">🌍 Aller sur Wikipédia</a>  
+    <a id="wiki-link" target="_blank">🌍 Voir sur Wikipédia</a>  
 
     <div class="container" id="main-container">
         <div class="search-container" id="search-box">
@@ -144,8 +141,8 @@
 
     <script>
         function searchWiki() {
-            let query = document.getElementById("search").value;
-            if (query.trim() === "") return;
+            let query = document.getElementById("search").value.trim();
+            if (query === "") return;
 
             let url = `https://fr.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(query)}&format=json&origin=*`;
 
@@ -176,6 +173,11 @@
 
                         resultsDiv.appendChild(result);
                         resultsDiv.style.display = "block";
+
+                        // Afficher le lien vers Wikipédia
+                        let wikiLink = document.getElementById("wiki-link");
+                        wikiLink.href = `https://fr.wikipedia.org/wiki/${encodeURIComponent(query)}`;
+                        wikiLink.style.display = "inline";
                     } else {
                         resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
                     }
@@ -206,7 +208,6 @@
             }
         }
 
-        // Charger le thème sauvegardé
         window.onload = function() {
             if (localStorage.getItem("theme") === "dark") {
                 document.body.classList.add("dark-mode");
