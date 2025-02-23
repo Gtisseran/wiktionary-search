@@ -1,0 +1,127 @@
+:root {
+    --background-color: #f8f9fa;
+    --text-color: #000;
+    --search-bg: #fff;
+    --search-border: #ddd;
+    --box-shadow: rgba(0, 0, 0, 0.2);
+    --link-color: black;
+}
+
+/* Mode sombre */
+.dark-mode {
+    --background-color: #121212;
+    --text-color: #fff;
+    --search-bg: #1e1e1e;
+    --search-border: #444;
+    --box-shadow: rgba(255, 255, 255, 0.2);
+    --link-color: white;
+}
+
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    padding: 0; 
+    text-align: center;
+    background: var(--background-color);
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Bouton Mode Sombre */
+#theme-toggle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    transition: color 0.3s;
+}
+
+/* Lien vers Wikipédia */
+#wiki-link {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--link-color);
+}
+
+#wiki-link:hover {
+    text-decoration: underline;
+}
+
+/* Barre de recherche - Centrée au début */
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--search-border);
+    border-radius: 25px;
+    padding: 10px;
+    width: 400px;
+    background: var(--search-bg);
+    box-shadow: 0 2px 5px var(--box-shadow);
+    transition: top 0.5s ease, transform 0.3s, width 0.3s, box-shadow 0.3s, background 0.3s;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Déplacement de la barre en haut après une recherche */
+.search-move {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+}
+
+.search-container input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 18px;
+    padding: 5px;
+    background: transparent;
+    color: var(--text-color);
+    transition: color 0.3s;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.search-container img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+/* Zone des résultats */
+#results {
+    max-width: 800px;
+    margin: 60px auto 20px;
+    text-align: left;
+    padding: 20px;
+    display: none;
+    background: var(--search-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--box-shadow);
+    transition: background 0.3s;
+}
+
+/* Rendre les liens visibles dans les deux thèmes */
+.result a {
+    color: var(--link-color) !important;
+    text-decoration: underline;
+}
+
+.result a:hover {
+    color: #0366d6 !important;
+}
