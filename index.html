@@ -62,7 +62,7 @@
             text-decoration: underline;
         }
 
-        /* Barre de recherche */
+        /* Barre de recherche - Centrée au début */
         .search-container {
             display: flex;
             align-items: center;
@@ -72,8 +72,19 @@
             width: 400px;
             background: var(--search-bg);
             box-shadow: 0 2px 5px var(--box-shadow);
-            transition: transform 0.3s, top 0.5s, width 0.3s, box-shadow 0.3s, background 0.3s;
-            position: relative;
+            transition: top 0.5s ease, transform 0.3s, width 0.3s, box-shadow 0.3s, background 0.3s;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Déplacement de la barre en haut après une recherche */
+        .search-move {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
         }
 
         .search-container input {
@@ -102,7 +113,7 @@
         /* Zone des résultats */
         #results {
             max-width: 800px;
-            margin: 20px auto;
+            margin: 60px auto 20px;
             text-align: left;
             padding: 20px;
             display: none;
@@ -178,6 +189,9 @@
                         let wikiLink = document.getElementById("wiki-link");
                         wikiLink.href = `https://fr.wikipedia.org/wiki/${encodeURIComponent(query)}`;
                         wikiLink.style.display = "inline";
+
+                        // Déplacer la barre de recherche en haut
+                        document.getElementById("search-box").classList.add("search-move");
                     } else {
                         resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
                     }
