@@ -5,24 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recherche Wikipédia</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        input { width: 80%; padding: 10px; margin: 10px; font-size: 16px; }
-        button { padding: 10px; font-size: 16px; cursor: pointer; }
-        #results { max-width: 800px; margin: auto; text-align: left; padding: 20px; }
-        .result { border-bottom: 1px solid #ddd; padding: 10px; }
-        .result h2 { margin: 0; }
-        .result a { display: block; margin-top: 10px; color: blue; text-decoration: none; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
+        
+        /* Conteneur principal */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: margin-top 0.5s;
+        }
+
+        /* Barre de recherche */
+        .search-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            padding: 10px;
+            width: 400px;
+            transition: transform 0.3s;
+            background: #fff;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 18px;
+            padding: 5px;
+        }
+
+        .search-container button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-container img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Titre qui s'affiche après recherche */
+        #dynamic-title {
+            font-size: 24px;
+            font-weight: bold;
+            display: none;
+            margin-top: 20px;
+        }
+
+        /* Zone des résultats */
+        #results {
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: left;
+            padding: 20px;
+            display: none;
+        }
+
+        .result {
+            padding: 10px;
+        }
+
+        /* Effet quand la recherche est faite */
+        .search-container.moved {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+        }
+
+        /* Suppression des parties inutiles */
+        .result .infobox, 
+        .result .navbox, 
+        .result .metadata, 
+        .result .reference, 
+        .result .mw-editsection { 
+            display: none !important;
+        }
     </style>
 </head>
 <body>
-    <h1>Recherche Wikipédia</h1>
-    <input type="text" id="search" placeholder="Rechercher un sujet...">
-    <button onclick="searchWiki()">Rechercher</button>
+
+    <div class="container" id="main-container">
+        <h1 id="dynamic-title"></h1>
+
+        <div class="search-container" id="search-box">
+            <input type="text" id="search" placeholder="Rechercher sur Wikipédia..." onkeydown="handleKeyPress(event)">
+            <button onclick="searchWiki()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Magnifying_glass_icon.svg" alt="Loupe">
+            </button>
+        </div>
+    </div>
+
     <div id="results"></div>
 
     <script>
         function searchWiki() {
             let query = document.getElementById("search").value;
+            if (query.trim() === "") return;
+
             let url = `https://fr.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(query)}&format=json&origin=*`;
 
             fetch(url)
@@ -35,16 +120,28 @@
                         let title = data.parse.title;
                         let content = data.parse.text["*"];
 
+                        // Nettoyage du contenu
+                        let tempDiv = document.createElement("div");
+                        tempDiv.innerHTML = content;
+
+                        // Supprimer les parties inutiles
+                        tempDiv.querySelectorAll(".infobox, .navbox, .metadata, .reference, .mw-editsection").forEach(el => el.remove());
+
+                        // Déplacer la barre de recherche en haut
+                        document.getElementById("search-box").classList.add("moved");
+
+                        // Mettre à jour le titre
+                        let dynamicTitle = document.getElementById("dynamic-title");
+                        dynamicTitle.innerText = title;
+                        dynamicTitle.style.display = "block";
+
+                        // Afficher le résultat nettoyé
                         let result = document.createElement("div");
                         result.classList.add("result");
-
-                        result.innerHTML = `
-                            <h2>${title}</h2>
-                            <div>${content}</div>
-                            <a href="https://fr.wikipedia.org/wiki/${encodeURIComponent(title)}" target="_blank">Lire sur Wikipédia</a>
-                        `;
+                        result.innerHTML = `<div>${tempDiv.innerHTML}</div>`;
 
                         resultsDiv.appendChild(result);
+                        resultsDiv.style.display = "block";
                     } else {
                         resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
                     }
@@ -53,6 +150,13 @@
                     document.getElementById("results").innerHTML = "<p>Erreur lors de la récupération des données.</p>";
                 });
         }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                searchWiki();
+            }
+        }
     </script>
+
 </body>
 </html>
