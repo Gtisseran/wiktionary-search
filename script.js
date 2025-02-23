@@ -55,23 +55,12 @@ function handleKeyPress(event) {
 }
 
 function toggleTheme() {
-    let body = document.body;
-    let button = document.getElementById("theme-toggle");
-
-    if (body.classList.contains("dark-mode")) {
-        body.classList.remove("dark-mode");
-        button.innerText = "🌙";
-        localStorage.setItem("theme", "light");
-    } else {
-        body.classList.add("dark-mode");
-        button.innerText = "☀️";
-        localStorage.setItem("theme", "dark");
-    }
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
 }
 
 window.onload = function() {
     if (localStorage.getItem("theme") === "dark") {
         document.body.classList.add("dark-mode");
-        document.getElementById("theme-toggle").innerText = "☀️";
     }
 };
