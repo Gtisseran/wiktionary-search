@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche Wikipédia</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input { width: 80%; padding: 10px; margin: 10px; font-size: 16px; }
+        button { padding: 10px; font-size: 16px; cursor: pointer; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Recherche Wikipédia</h1>
+    <input type="text" id="search" placeholder="Rechercher un sujet...">
+    <button onclick="searchWiki()">Rechercher</button>
+    <ul id="results"></ul>
+
+    <script>
+        function searchWiki() {
+            let query = document.getElementById("search").value;
+            let url = `https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch=${query}&format=json&origin=*`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let results = data.query.search;
+                    let resultList = document.getElementById("results");
+                    resultList.innerHTML = "";
+
+                    results.forEach(result => {
+                        let li = document.createElement("li");
+                        li.innerHTML = `<a href="https://fr.wikipedia.org/wiki/${result.title}" target="_blank">${result.title}</a>`;
+                        resultList.appendChild(li);
+                    });
+                })
+                .catch(error => console.error("Erreur :", error));
+        }
+    </script>
+</body>
+</html>
