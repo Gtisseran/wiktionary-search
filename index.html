@@ -28,6 +28,7 @@
             font-size: 28px;
             font-weight: bold;
             margin-bottom: 20px;
+            transition: opacity 0.5s;
         }
 
         /* Barre de recherche */
@@ -40,7 +41,7 @@
             width: 400px;
             background: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, top 0.5s;
+            transition: transform 0.3s, top 0.5s, width 0.3s;
             position: relative;
         }
 
@@ -67,14 +68,14 @@
         #dynamic-title {
             font-size: 24px;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 15px;
             display: none;
         }
 
         /* Zone des résultats */
         #results {
             max-width: 800px;
-            margin: 10px auto;
+            margin: 0 auto;
             text-align: left;
             padding: 20px;
             display: none;
@@ -96,7 +97,7 @@
             width: 300px;
         }
 
-        /* Suppression des parties inutiles */
+        /* Supprime les parties inutiles */
         .result .infobox, 
         .result .navbox, 
         .result .metadata, 
@@ -104,6 +105,7 @@
         .result .mw-editsection { 
             display: none !important;
         }
+
     </style>
 </head>
 <body>
@@ -113,7 +115,7 @@
         <div class="search-container" id="search-box">
             <input type="text" id="search" placeholder="Rechercher sur Wikipédia..." onkeydown="handleKeyPress(event)">
             <button onclick="searchWiki()">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Magnifying_glass_icon.svg" alt="Loupe">
+                <img id="search-icon" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Magnifying_glass_icon.svg" alt="Loupe">
             </button>
         </div>
         <h1 id="dynamic-title"></h1> <!-- Titre du résultat -->
@@ -145,13 +147,17 @@
                         // Supprimer les parties inutiles
                         tempDiv.querySelectorAll(".infobox, .navbox, .metadata, .reference, .mw-editsection").forEach(el => el.remove());
 
+                        // Cacher "WikiSearch"
+                        document.getElementById("site-name").style.opacity = "0";
+
                         // Déplacer la barre de recherche en haut
                         document.getElementById("search-box").classList.add("moved");
 
-                        // Mettre à jour le titre
+                        // Mettre à jour le titre du résultat
                         let dynamicTitle = document.getElementById("dynamic-title");
                         dynamicTitle.innerText = title;
                         dynamicTitle.style.display = "block";
+                        dynamicTitle.style.marginTop = "5px"; // Réduction de l'espace
 
                         // Afficher le résultat nettoyé
                         let result = document.createElement("div");
@@ -160,6 +166,7 @@
 
                         resultsDiv.appendChild(result);
                         resultsDiv.style.display = "block";
+                        resultsDiv.style.marginTop = "10px"; // Réduction de l'espace
                     } else {
                         resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
                     }
