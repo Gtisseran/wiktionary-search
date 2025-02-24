@@ -35,9 +35,9 @@ body.dark-mode {
 
 /* Bouton mode sombre/clair */
 #theme-toggle {
-    position: fixed;
+    position: absolute;
     top: 20px;
-    right: 20px;
+    left: 20px;
     background: transparent;
     border: none;
     font-size: 1.5rem;
@@ -58,9 +58,10 @@ body.dark-mode {
     width: 300px;
     padding: 10px;
     font-size: 16px;
-    margin-right: 10px;
-    border-radius: 20px;
+    border-radius: 30px; /* Bord arrondi complet */
     border: 1px solid #ccc;
+    outline: none;
+    transition: border-color var(--transition-speed);
 }
 
 #search-button {
@@ -69,7 +70,7 @@ body.dark-mode {
     background-color: var(--accent-color);
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 30px;
     cursor: pointer;
     transition: background-color var(--transition-speed);
 }
@@ -100,7 +101,7 @@ h1 {
     font-size: 16px;
     cursor: pointer;
     margin: 0;
-    border-radius: 20px;
+    border-radius: 30px; /* Comme la barre de recherche */
     transition: background-color 0.3s ease;
 }
 
@@ -137,15 +138,32 @@ h1 {
     animation: fadeIn 0.5s ease-out;
 }
 
-/* Rétrécissement du bouton d'icône du mode sombre */
-#theme-toggle {
-    font-size: 1.2rem;
-    background-color: transparent;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+/* Image de la loupe */
+#search-button {
+    background-image: url('loupe.png');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    padding: 10px;
 }
 
 /* Animation et styles divers */
 #results, #summary, .tab {
     transition: opacity var(--transition-speed);
+}
+
+/* Mise en page propre */
+#tabs {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Pour la version mobile */
+@media (max-width: 768px) {
+    #search {
+        width: 250px;
+    }
 }
