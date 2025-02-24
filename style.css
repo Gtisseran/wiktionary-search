@@ -29,7 +29,7 @@ body {
     left: 20px;
     background-color: transparent;
     border: none;
-    font-size: 20px; /* Réduit la taille de l'icône */
+    font-size: 20px;
     cursor: pointer;
     color: var(--text-color-light);
     transition: color var(--transition-speed);
@@ -60,6 +60,12 @@ body.dark-mode #theme-toggle {
     cursor: pointer;
 }
 
+/* Titre */
+h1 {
+    text-align: center;
+    font-size: 2em;
+}
+
 /* Onglets */
 #tabs {
     display: flex;
@@ -86,10 +92,12 @@ body.dark-mode #theme-toggle {
     color: white;
 }
 
-/* Contenu */
+/* Résultats */
 #results, #summary {
     padding: 20px;
     text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 /* Animation de transition */
@@ -97,17 +105,12 @@ body.dark-mode #theme-toggle {
     transition: opacity 0.3s ease-in-out;
 }
 
-/* Centrage du titre */
-h1 {
-    text-align: center;
-}
-
 /* Texte non disponible */
 #summary {
     font-style: italic;
 }
 
-/* Conteneur pour éviter que le texte ne dépasse */
+/* Centrage du contenu */
 body {
     overflow-x: hidden;
 }
