@@ -1,12 +1,23 @@
 :root {
-    --background-color: #f8f9fa;
-    --text-color: #000;
-    --search-bg: #fff;
-    --search-border: #ddd;
-    --box-shadow: rgba(0, 0, 0, 0.2);
-    --link-color: black;
-    --button-bg: #007bff;
-    --button-hover: #0056b3;
+    --background-color: #121212;
+    --text-color: #fff;
+    --search-bg: #1e1e1e;
+    --search-border: #444;
+    --box-shadow: rgba(255, 255, 255, 0.2);
+    --link-color: white;
+    --button-bg: #4CAF50;
+    --button-hover: #45a049;
+}
+
+/* Mode clair */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: var(--background-color);
+    color: var(--text-color);
+    transition: background 0.2s, color 0.2s;
 }
 
 /* Mode sombre */
@@ -21,17 +32,6 @@
     --button-hover: #45a049;
 }
 
-body { 
-    font-family: Arial, sans-serif; 
-    margin: 0; 
-    padding: 0; 
-    text-align: center;
-    background: var(--background-color);
-    color: var(--text-color);
-    transition: background 0.2s, color 0.2s;
-}
-
-/* Bouton Mode Sombre (fixé en haut) */
 #theme-toggle {
     position: fixed;
     top: 10px;
@@ -44,7 +44,6 @@ body {
     transition: color 0.3s;
 }
 
-/* Lien vers Wikipédia (fixé en haut) */
 #wiki-link {
     display: none;
     position: fixed;
@@ -69,19 +68,10 @@ body {
     width: 400px;
     background: var(--search-bg);
     box-shadow: 0 2px 5px var(--box-shadow);
-    transition: top 0.5s ease, transform 0.3s, width 0.3s, box-shadow 0.3s, background 0.3s;
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-/* Déplacement de la barre en haut après une recherche */
-.search-move {
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
 }
 
 .search-container input {
@@ -119,6 +109,16 @@ body {
     user-select: text;
 }
 
+#summary {
+    text-align: center;
+    display: none;
+}
+
+.center-text {
+    font-size: 18px;
+    color: var(--text-color);
+}
+
 /* Version du site en bas à gauche */
 #version {
     position: fixed;
@@ -131,8 +131,8 @@ body {
 /* Boutons de gestion des résultats */
 .button-container {
     position: fixed;
-    right: 20px;
-    top: 60px;
+    left: 20px;
+    top: 120px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -150,4 +150,10 @@ body {
 
 .button-container button:hover {
     background-color: var(--button-hover);
+}
+
+#tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }

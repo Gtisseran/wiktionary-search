@@ -20,17 +20,19 @@
         </div>
     </div>
 
-    <div class="button-container">
+    <!-- Onglets Résultats et Résumé -->
+    <div class="button-container" id="tabs" style="display: none;">
         <button id="toggle-results" onclick="toggleResults()">Résultats</button>
         <button id="toggle-summary" onclick="toggleSummary()">Résumé</button>
     </div>
 
+    <!-- Résultats et Résumé -->
     <div id="results"></div>
     <div id="summary" style="display:none;">
-        <p>Non disponible</p>
+        <p class="center-text">Non disponible</p>
     </div>
 
-    <div id="version">v1.4</div>
+    <div id="version">v1.5</div>
 
     <script src="script.js"></script>
 

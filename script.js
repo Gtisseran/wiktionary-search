@@ -37,6 +37,9 @@ function searchWiki() {
                 wikiLink.href = `https://fr.wikipedia.org/wiki/${encodeURIComponent(query)}`;
                 wikiLink.style.display = "inline";
 
+                // Afficher les onglets
+                document.getElementById("tabs").style.display = "flex";
+
                 // Déplacer la barre de recherche en haut
                 document.getElementById("search-box").classList.add("search-move");
 
@@ -81,7 +84,13 @@ function toggleSummary() {
 }
 
 window.onload = function() {
+    // Initialiser le mode sombre si l'utilisateur ne l'a pas déjà activé
     if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+
+    // Si pas de recherche effectuée, afficher en mode sombre
+    if (!localStorage.getItem("theme")) {
         document.body.classList.add("dark-mode");
     }
 };
