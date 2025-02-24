@@ -1,44 +1,35 @@
-/* Variables pour couleurs */
+/* Variables de couleurs */
 :root {
-    --background-color-light: #ffffff;
-    --background-color-dark: #121212;
+    --bg-color-light: #ffffff;
+    --bg-color-dark: #121212;
     --text-color-light: #000000;
     --text-color-dark: #ffffff;
-    --link-color-light: #1a0dab;
-    --link-color-dark: #4fa3d1;
-    --button-color-light: #f1f1f1;
-    --button-color-dark: #333;
-    --button-hover-light: #dcdcdc;
-    --button-hover-dark: #555;
-    --border-color-light: #ccc;
-    --border-color-dark: #444;
-    --accent-color: #4CAF50;
+    --accent-color: #6200ea;
     --transition-speed: 0.3s;
 }
 
-/* Mode sombre par défaut */
+/* Mode sombre */
 body.dark-mode {
-    background-color: var(--background-color-dark);
+    background-color: var(--bg-color-dark);
     color: var(--text-color-dark);
 }
 
 body {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--background-color-light);
-    color: var(--text-color-light);
-    transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
-/* Mode sombre / clair */
+/* Mode sombre/clair */
 #theme-toggle {
     position: fixed;
     top: 20px;
     left: 20px;
     background-color: transparent;
     border: none;
-    font-size: 30px;
+    font-size: 20px; /* Réduit la taille de l'icône */
     cursor: pointer;
     color: var(--text-color-light);
     transition: color var(--transition-speed);
@@ -48,95 +39,41 @@ body.dark-mode #theme-toggle {
     color: var(--text-color-dark);
 }
 
-body.dark-mode #theme-toggle::before {
-    content: "🌞";
-}
-
-/* Titre */
-h1 {
-    font-size: 36px;
-    text-align: center;
-    margin-top: 100px;
-    font-weight: normal;
-}
-
 /* Barre de recherche */
 .search-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 70%;
-    max-width: 500px;
-    margin: 20px auto;
+    padding-top: 50px;
+}
+
+#search {
+    width: 300px;
     padding: 10px;
-    border-radius: 30px;
-    background-color: var(--button-color-light);
-    border: 1px solid var(--border-color-light);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+    font-size: 16px;
+    margin-right: 10px;
 }
 
-body.dark-mode .search-container {
-    background-color: var(--button-color-dark);
-    border-color: var(--border-color-dark);
-}
-
-/* Input de recherche */
-.search-container input {
-    width: 80%;
+#search-button {
     padding: 10px;
-    font-size: 18px;
-    border: none;
-    background: transparent;
-    color: var(--text-color-light);
-    transition: color var(--transition-speed);
-}
-
-body.dark-mode .search-container input {
-    color: var(--text-color-dark);
-}
-
-/* Bouton recherche */
-.search-container button {
-    background: none;
-    border: none;
+    font-size: 16px;
     cursor: pointer;
-}
-
-.search-container img {
-    width: 24px;
-    height: 24px;
 }
 
 /* Onglets */
-.tabs-container {
+#tabs {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    padding-top: 20px;
 }
 
 .tab {
-    background-color: var(--button-color-light);
-    border: 1px solid var(--border-color-light);
-    border-radius: 25px;
+    background-color: transparent;
+    border: 1px solid var(--accent-color);
     padding: 10px 20px;
-    cursor: pointer;
-    margin: 0 10px;
     font-size: 16px;
-    transition: background-color var(--transition-speed), color var(--transition-speed);
-}
-
-body.dark-mode .tab {
-    background-color: var(--button-color-dark);
-    border-color: var(--border-color-dark);
-}
-
-.tab:hover {
-    background-color: var(--button-hover-light);
-}
-
-body.dark-mode .tab:hover {
-    background-color: var(--button-hover-dark);
+    cursor: pointer;
+    margin: 0 5px;
 }
 
 .tab.active {
@@ -144,30 +81,33 @@ body.dark-mode .tab:hover {
     color: white;
 }
 
-/* Contenu des onglets */
-.content {
-    display: none;
-    max-width: 800px;
-    margin: 20px auto;
+.tab:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Contenu */
+#results, #summary {
     padding: 20px;
-    background-color: var(--button-color-light);
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-body.dark-mode .content {
-    background-color: var(--button-color-dark);
+/* Animation de transition */
+.content {
+    transition: opacity 0.3s ease-in-out;
 }
 
-/* Version */
-#version {
-    position: fixed;
-    bottom: 10px;
-    left: 20px;
-    font-size: 12px;
-    color: var(--text-color-light);
+/* Centrage du titre */
+h1 {
+    text-align: center;
 }
 
-body.dark-mode #version {
-    color: var(--text-color-dark);
+/* Texte non disponible */
+#summary {
+    font-style: italic;
+}
+
+/* Conteneur pour éviter que le texte ne dépasse */
+body {
+    overflow-x: hidden;
 }
