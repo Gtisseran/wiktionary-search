@@ -3,38 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recherche Wikipédia</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>WikiSearch</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
-    <a id="wiki-link" target="_blank">🌍 Voir sur Wikipédia</a>  
+    <!-- Bouton Mode Sombre/Clair -->
+    <button id="theme-toggle">🌙</button>
 
-    <div class="container">
-        <div class="search-container" id="search-box">
-            <input type="text" id="search" placeholder="Rechercher sur Wikipédia..." onkeydown="handleKeyPress(event)">
-            <button onclick="searchWiki()">
-                <img id="search-icon" src="loupe.png" alt="Loupe">
-            </button>
-        </div>
+    <!-- Titre affiché avant une recherche -->
+    <h1 id="title">WikiSearch</h1>
+
+    <!-- Barre de recherche -->
+    <div id="search-box" class="search-container">
+        <input type="text" id="search" placeholder="Rechercher sur Wikipédia...">
+        <button id="search-button">
+            <img src="loupe.png" alt="Rechercher">
+        </button>
     </div>
 
-    <!-- Onglets Résultats et Résumé -->
-    <div class="button-container" id="tabs" style="display: none;">
-        <button id="toggle-results" onclick="toggleResults()">Résultats</button>
-        <button id="toggle-summary" onclick="toggleSummary()">Résumé</button>
+    <!-- Bouton "Voir sur Wikipédia" (s'affiche après une recherche) -->
+    <a id="wiki-link" href="#" target="_blank">Voir sur Wikipédia</a>
+
+    <!-- Onglets (Résultat & Résumé) -->
+    <div id="tabs" class="tabs-container">
+        <button id="result-tab" class="tab active">Résultats</button>
+        <button id="summary-tab" class="tab">Résumé</button>
     </div>
 
-    <!-- Résultats et Résumé -->
-    <div id="results"></div>
-    <div id="summary" style="display:none;">
-        <p class="center-text">Non disponible</p>
-    </div>
+    <!-- Contenu des onglets -->
+    <div id="results" class="content"></div>
+    <div id="summary" class="content">Non disponible</div>
 
-    <div id="version">v1.5</div>
+    <!-- Version en bas à gauche -->
+    <div id="version">Version 1.0.0</div>
 
     <script src="script.js"></script>
-
 </body>
 </html>
