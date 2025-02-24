@@ -4,7 +4,7 @@ themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
 });
 
-// Recherche Wikipedia
+// Fonction de recherche
 function searchWiki() {
     let query = document.getElementById("search").value.trim();
     if (query === "") return;
@@ -44,7 +44,7 @@ function searchWiki() {
         });
 }
 
-// Écouteurs d'événements
+// Événements de recherche
 document.getElementById("search-button").addEventListener("click", searchWiki);
 document.getElementById("search").addEventListener("keypress", function(event) {
     if (event.key === "Enter") searchWiki();
