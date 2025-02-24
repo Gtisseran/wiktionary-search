@@ -2,6 +2,7 @@
 const themeToggle = document.getElementById("theme-toggle");
 themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
+    themeToggle.classList.toggle("active");
 });
 
 // Fonction de recherche
@@ -31,10 +32,12 @@ function searchWiki() {
                 resultsDiv.style.display = "block";
 
                 document.getElementById("wiki-link").href = `https://fr.wikipedia.org/wiki/${encodeURIComponent(query)}`;
-                document.getElementById("wiki-link").style.display = "inline";
+                document.getElementById("wiki-link").style.display = "none";
 
                 document.getElementById("tabs").style.display = "flex";
                 document.getElementById("result-tab").classList.add("active");
+                document.getElementById("summary-tab").classList.remove("active");
+                document.getElementById("wikipedia-tab").classList.remove("active");
             } else {
                 resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
             }
@@ -48,4 +51,27 @@ function searchWiki() {
 document.getElementById("search-button").addEventListener("click", searchWiki);
 document.getElementById("search").addEventListener("keypress", function(event) {
     if (event.key === "Enter") searchWiki();
+});
+
+// Onglets
+document.getElementById("result-tab").addEventListener("click", () => {
+    document.getElementById("results").style.display = "block";
+    document.getElementById("summary").style.display = "none";
+    document.getElementById("result-tab").classList.add("active");
+    document.getElementById("summary-tab").classList.remove("active");
+    document.getElementById("wikipedia-tab").classList.remove("active");
+});
+
+document.getElementById("summary-tab").addEventListener("click", () => {
+    document.getElementById("results").style.display = "none";
+    document.getElementById("summary").style.display = "block";
+    document.getElementById("result-tab").classList.remove("active");
+    document.getElementById("summary-tab").classList.add("active");
+    document.getElementById("wikipedia-tab").classList.remove("active");
+});
+
+document.getElementById("wikipedia-tab").addEventListener("click", () => {
+    let query = document.getElementById("search").value.trim();
+    if (query === "") return;
+    window.open(`https://fr.wikipedia.org/wiki/${encodeURIComponent(query)}`, "_blank");
 });

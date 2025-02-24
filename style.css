@@ -4,6 +4,8 @@
     --background-color-dark: #121212;
     --text-color-light: #000000;
     --text-color-dark: #ffffff;
+    --link-color-light: #1a0dab;
+    --link-color-dark: #4fa3d1;
     --button-color-light: #f1f1f1;
     --button-color-dark: #333;
     --button-hover-light: #dcdcdc;
@@ -44,6 +46,10 @@ body {
 
 body.dark-mode #theme-toggle {
     color: var(--text-color-dark);
+}
+
+body.dark-mode #theme-toggle::before {
+    content: "🌞";
 }
 
 /* Titre */
@@ -100,21 +106,6 @@ body.dark-mode .search-container input {
 .search-container img {
     width: 24px;
     height: 24px;
-}
-
-/* Lien "Voir sur Wikipédia" */
-.wiki-link {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    font-size: 14px;
-    text-decoration: none;
-    color: var(--text-color-light);
-    display: none;
-}
-
-body.dark-mode .wiki-link {
-    color: var(--text-color-dark);
 }
 
 /* Onglets */
