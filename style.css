@@ -1,16 +1,17 @@
 /* Variables de couleurs */
 :root {
     --bg-color-light: #ffffff;
-    --bg-color-dark: #1a1a1a;
-    --text-color-light: #000000;
+    --bg-color-dark: #121212;
+    --text-color-light: #333333;
     --text-color-dark: #ffffff;
     --accent-color: #6200ea;
     --button-bg-light: #f1f1f1;
     --button-bg-dark: #333333;
+    --link-color: #6200ea;
     --transition-speed: 0.3s;
 }
 
-/* Style par défaut */
+/* Style général */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -32,7 +33,7 @@ body.dark-mode {
     color: var(--text-color-dark);
 }
 
-/* Mode sombre/clair */
+/* Bouton mode sombre/clair */
 #theme-toggle {
     position: fixed;
     top: 20px;
@@ -120,7 +121,13 @@ h1 {
     display: none;
 }
 
-/* Animation des éléments */
+/* Résumé non disponible */
+#summary {
+    font-style: italic;
+    color: grey;
+}
+
+/* Transition lors de changement */
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
@@ -130,13 +137,15 @@ h1 {
     animation: fadeIn 0.5s ease-out;
 }
 
-/* Résumé non disponible */
-#summary {
-    font-style: italic;
-    color: grey;
+/* Rétrécissement du bouton d'icône du mode sombre */
+#theme-toggle {
+    font-size: 1.2rem;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-/* Transition lorsque l'élément change */
+/* Animation et styles divers */
 #results, #summary, .tab {
     transition: opacity var(--transition-speed);
 }
