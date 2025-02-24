@@ -1,11 +1,29 @@
 /* Variables de couleurs */
 :root {
     --bg-color-light: #ffffff;
-    --bg-color-dark: #121212;
+    --bg-color-dark: #1a1a1a;
     --text-color-light: #000000;
     --text-color-dark: #ffffff;
     --accent-color: #6200ea;
+    --button-bg-light: #f1f1f1;
+    --button-bg-dark: #333333;
     --transition-speed: 0.3s;
+}
+
+/* Style par défaut */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 /* Mode sombre */
@@ -14,29 +32,16 @@ body.dark-mode {
     color: var(--text-color-dark);
 }
 
-body {
-    background-color: var(--bg-color-light);
-    color: var(--text-color-light);
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
 /* Mode sombre/clair */
 #theme-toggle {
     position: fixed;
     top: 20px;
-    left: 20px;
-    background-color: transparent;
+    right: 20px;
+    background: transparent;
     border: none;
-    font-size: 20px;
+    font-size: 1.5rem;
     cursor: pointer;
-    color: var(--text-color-light);
-    transition: color var(--transition-speed);
-}
-
-body.dark-mode #theme-toggle {
-    color: var(--text-color-dark);
+    transition: transform 0.3s ease;
 }
 
 /* Barre de recherche */
@@ -44,7 +49,8 @@ body.dark-mode #theme-toggle {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 50px;
+    padding: 10px;
+    margin-top: 60px;
 }
 
 #search {
@@ -52,25 +58,38 @@ body.dark-mode #theme-toggle {
     padding: 10px;
     font-size: 16px;
     margin-right: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
 }
 
 #search-button {
-    padding: 10px;
+    padding: 10px 20px;
     font-size: 16px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 20px;
     cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+#search-button:hover {
+    background-color: #7e1fff;
 }
 
 /* Titre */
 h1 {
-    text-align: center;
-    font-size: 2em;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 20px;
 }
 
 /* Onglets */
 #tabs {
     display: flex;
     justify-content: center;
-    padding-top: 20px;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .tab {
@@ -79,38 +98,45 @@ h1 {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    margin: 0 5px;
+    margin: 0;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
 }
 
-.tab.active {
-    background-color: var(--accent-color);
-    color: white;
-}
-
-.tab:hover {
+.tab.active, .tab:hover {
     background-color: var(--accent-color);
     color: white;
 }
 
 /* Résultats */
 #results, #summary {
-    padding: 20px;
-    text-align: center;
+    width: 80%;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
 }
 
-/* Animation de transition */
-.content {
-    transition: opacity 0.3s ease-in-out;
+/* Animation des éléments */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
-/* Texte non disponible */
+.fade {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Résumé non disponible */
 #summary {
     font-style: italic;
+    color: grey;
 }
 
-/* Centrage du contenu */
-body {
-    overflow-x: hidden;
+/* Transition lorsque l'élément change */
+#results, #summary, .tab {
+    transition: opacity var(--transition-speed);
 }
