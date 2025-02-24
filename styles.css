@@ -5,6 +5,8 @@
     --search-border: #ddd;
     --box-shadow: rgba(0, 0, 0, 0.2);
     --link-color: black;
+    --button-bg: #007bff;
+    --button-hover: #0056b3;
 }
 
 /* Mode sombre */
@@ -15,6 +17,8 @@
     --search-border: #444;
     --box-shadow: rgba(255, 255, 255, 0.2);
     --link-color: white;
+    --button-bg: #4CAF50;
+    --button-hover: #45a049;
 }
 
 body { 
@@ -122,4 +126,28 @@ body {
     left: 10px;
     font-size: 12px;
     color: var(--text-color);
+}
+
+/* Boutons de gestion des résultats */
+.button-container {
+    position: fixed;
+    right: 20px;
+    top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.button-container button {
+    padding: 10px;
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button-container button:hover {
+    background-color: var(--button-hover);
 }

@@ -39,6 +39,9 @@ function searchWiki() {
 
                 // Déplacer la barre de recherche en haut
                 document.getElementById("search-box").classList.add("search-move");
+
+                // Faire défiler la page jusqu'aux résultats
+                window.scrollTo(0, document.body.scrollHeight);
             } else {
                 resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
             }
@@ -57,6 +60,24 @@ function handleKeyPress(event) {
 function toggleTheme() {
     document.body.classList.toggle('dark-mode');
     localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+}
+
+function toggleResults() {
+    let resultsDiv = document.getElementById("results");
+    resultsDiv.style.display = (resultsDiv.style.display === "none" || resultsDiv.style.display === "") ? "block" : "none";
+
+    // Scroller jusqu'à la section des résultats après avoir cliqué sur "Résultats"
+    if (resultsDiv.style.display === "block") {
+        window.scrollTo(0, resultsDiv.offsetTop);
+    }
+}
+
+function toggleSummary() {
+    let summaryDiv = document.getElementById("summary");
+    summaryDiv.style.display = (summaryDiv.style.display === "none" || summaryDiv.style.display === "") ? "block" : "none";
+
+    let resultsDiv = document.getElementById("results");
+    resultsDiv.style.display = "none"; // Masquer les résultats
 }
 
 window.onload = function() {
