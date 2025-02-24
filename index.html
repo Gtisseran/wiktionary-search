@@ -8,10 +8,31 @@
 </head>
 <body>
 
-    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>  
+    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
     <a id="wiki-link" target="_blank">🌍 Voir sur Wikipédia</a>  
 
     <div class="container">
         <div class="search-container" id="search-box">
             <input type="text" id="search" placeholder="Rechercher sur Wikipédia..." onkeydown="handleKeyPress(event)">
-            <button onclick="searchWik
+            <button onclick="searchWiki()">
+                <img id="search-icon" src="loupe.png" alt="Loupe">
+            </button>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button id="toggle-results" onclick="toggleResults()">Résultats</button>
+        <button id="toggle-summary" onclick="toggleSummary()">Résumé</button>
+    </div>
+
+    <div id="results"></div>
+    <div id="summary" style="display:none;">
+        <p>Non disponible</p>
+    </div>
+
+    <div id="version">v1.4</div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
