@@ -2,29 +2,10 @@
 :root {
     --bg-color-light: #ffffff;
     --bg-color-dark: #121212;
-    --text-color-light: #333333;
+    --text-color-light: #000000;
     --text-color-dark: #ffffff;
     --accent-color: #6200ea;
-    --button-bg-light: #f1f1f1;
-    --button-bg-dark: #333333;
-    --link-color: #6200ea;
     --transition-speed: 0.3s;
-}
-
-/* Style général */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
-    background-color: var(--bg-color-light);
-    color: var(--text-color-light);
-    transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 /* Mode sombre */
@@ -33,16 +14,29 @@ body.dark-mode {
     color: var(--text-color-dark);
 }
 
-/* Bouton mode sombre/clair */
+body {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Mode sombre/clair */
 #theme-toggle {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
-    background: transparent;
+    background-color: transparent;
     border: none;
-    font-size: 1.5rem;
+    font-size: 20px; /* Réduit la taille de l'icône */
     cursor: pointer;
-    transition: transform 0.3s ease;
+    color: var(--text-color-light);
+    transition: color var(--transition-speed);
+}
+
+body.dark-mode #theme-toggle {
+    color: var(--text-color-dark);
 }
 
 /* Barre de recherche */
@@ -50,48 +44,27 @@ body.dark-mode {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    margin-top: 60px;
+    padding-top: 50px;
 }
 
 #search {
     width: 300px;
     padding: 10px;
     font-size: 16px;
-    border-radius: 30px; /* Bord arrondi complet */
-    border: 1px solid #ccc;
-    outline: none;
-    transition: border-color var(--transition-speed);
+    margin-right: 10px;
 }
 
 #search-button {
-    padding: 10px 20px;
+    padding: 10px;
     font-size: 16px;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 30px;
     cursor: pointer;
-    transition: background-color var(--transition-speed);
-}
-
-#search-button:hover {
-    background-color: #7e1fff;
-}
-
-/* Titre */
-h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-top: 20px;
 }
 
 /* Onglets */
 #tabs {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+    padding-top: 20px;
 }
 
 .tab {
@@ -100,70 +73,41 @@ h1 {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    margin: 0;
-    border-radius: 30px; /* Comme la barre de recherche */
-    transition: background-color 0.3s ease;
+    margin: 0 5px;
 }
 
-.tab.active, .tab:hover {
+.tab.active {
     background-color: var(--accent-color);
     color: white;
 }
 
-/* Résultats */
-#results, #summary {
-    width: 80%;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    display: none;
+.tab:hover {
+    background-color: var(--accent-color);
+    color: white;
 }
 
-/* Résumé non disponible */
+/* Contenu */
+#results, #summary {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Animation de transition */
+.content {
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Centrage du titre */
+h1 {
+    text-align: center;
+}
+
+/* Texte non disponible */
 #summary {
     font-style: italic;
-    color: grey;
 }
 
-/* Transition lors de changement */
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-.fade {
-    animation: fadeIn 0.5s ease-out;
-}
-
-/* Image de la loupe */
-#search-button {
-    background-image: url('loupe.png');
-    background-size: 20px 20px;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 50%;
-    padding: 10px;
-}
-
-/* Animation et styles divers */
-#results, #summary, .tab {
-    transition: opacity var(--transition-speed);
-}
-
-/* Mise en page propre */
-#tabs {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 15px;
-}
-
-/* Pour la version mobile */
-@media (max-width: 768px) {
-    #search {
-        width: 250px;
-    }
+/* Conteneur pour éviter que le texte ne dépasse */
+body {
+    overflow-x: hidden;
 }

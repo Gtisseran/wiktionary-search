@@ -1,4 +1,4 @@
-// Fonction mode sombre/clair
+// Mode sombre/clair
 const themeToggle = document.getElementById("theme-toggle");
 themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
@@ -7,32 +7,40 @@ themeToggle.addEventListener("click", () => {
 
 // Fonction de recherche
 function searchWiki() {
-    const query = document.getElementById("search").value.trim();
+    let query = document.getElementById("search").value.trim();
     if (query === "") return;
 
-    const url = `https://fr.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(query)}&format=json&origin=*`;
+    let url = `https://fr.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(query)}&format=json&origin=*`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            const resultsDiv = document.getElementById("results");
-            const summaryDiv = document.getElementById("summary");
-            const tabs = document.getElementById("tabs");
+            let resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "";
 
             if (data.parse) {
-                resultsDiv.innerHTML = data.parse.text["*"];
-                summaryDiv.style.display = "none";
-                resultsDiv.style.display = "block";
-                tabs.style.display = "flex";
+                let content = data.parse.text["*"];
+                let tempDiv = document.createElement("div");
+                tempDiv.innerHTML = content;
 
+                tempDiv.querySelectorAll(".infobox, .navbox, .metadata, .reference").forEach(el => el.remove());
+
+                let result = document.createElement("div");
+                result.innerHTML = tempDiv.innerHTML;
+
+                resultsDiv.appendChild(result);
+                resultsDiv.style.display = "block";
+
+                document.getElementById("tabs").style.display = "flex";
                 document.getElementById("result-tab").classList.add("active");
                 document.getElementById("summary-tab").classList.remove("active");
                 document.getElementById("wikipedia-tab").classList.remove("active");
 
+                // Réinitialisation de l'onglet résumé
+                document.getElementById("summary").style.display = "none";
             } else {
                 resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
-                summaryDiv.style.display = "none";
-                tabs.style.display = "none";
+                document.getElementById("tabs").style.display = "none";
             }
         })
         .catch(() => {
@@ -42,7 +50,7 @@ function searchWiki() {
 
 // Événements de recherche
 document.getElementById("search-button").addEventListener("click", searchWiki);
-document.getElementById("search").addEventListener("keypress", function (event) {
+document.getElementById("search").addEventListener("keypress", function(event) {
     if (event.key === "Enter") searchWiki();
 });
 
@@ -64,7 +72,7 @@ document.getElementById("summary-tab").addEventListener("click", () => {
 });
 
 document.getElementById("wikipedia-tab").addEventListener("click", () => {
-    const query = document.getElementById("search").value.trim();
+    let query = document.getElementById("search").value.trim();
     if (query === "") return;
     window.open(`https://fr.wikipedia.org/wiki/${encodeURIComponent(query)}`, "_blank");
 });
