@@ -3,8 +3,6 @@ const themeToggle = document.getElementById("theme-toggle");
 themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     themeToggle.classList.toggle("active");
-    // Change l'icône selon le mode
-    themeToggle.textContent = document.body.classList.contains("dark-mode") ? "🌞" : "🌙";
 });
 
 // Fonction de recherche
@@ -33,16 +31,15 @@ function searchWiki() {
                 resultsDiv.appendChild(result);
                 resultsDiv.style.display = "block";
 
+                document.getElementById("wiki-link").href = `https://fr.wikipedia.org/wiki/${encodeURIComponent(query)}`;
+                document.getElementById("wiki-link").style.display = "none";
+
                 document.getElementById("tabs").style.display = "flex";
                 document.getElementById("result-tab").classList.add("active");
                 document.getElementById("summary-tab").classList.remove("active");
                 document.getElementById("wikipedia-tab").classList.remove("active");
-
-                // Réinitialisation de l'onglet résumé
-                document.getElementById("summary").style.display = "none";
             } else {
                 resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
-                document.getElementById("tabs").style.display = "none";
             }
         })
         .catch(() => {
