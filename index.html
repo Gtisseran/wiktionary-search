@@ -8,37 +8,33 @@
 </head>
 <body>
 
-    <!-- Bouton mode sombre/clair -->
-    <button id="theme-toggle">🌙</button>
+    <!-- Bouton Mode Sombre/Clair -->
+    <button id="theme-toggle" class="theme-toggle-btn">🌙</button>
+
+    <!-- Titre (affiché uniquement avant une recherche) -->
+    <h1 id="title">WikiSearch</h1>
 
     <!-- Barre de recherche -->
-    <div id="search-container">
-        <h1 id="title">WikiSearch</h1>
-        <div id="search-box">
-            <input type="text" id="search-input" placeholder="Rechercher...">
-            <button id="search-button">
-                <img src="loupe.png" alt="Rechercher">
-            </button>
-        </div>
+    <div id="search-box" class="search-container">
+        <input type="text" id="search" placeholder="Rechercher sur Wikipédia...">
+        <button id="search-button">
+            <img src="loupe.png" alt="Rechercher">
+        </button>
     </div>
 
-    <!-- Onglets (Résultat / Résumé / Wikipédia) -->
-    <div id="tabs" class="hidden">
-        <button class="tab active" id="tab-result">Résultat</button>
-        <button class="tab" id="tab-summary">Résumé</button>
-        <button class="tab" id="tab-wikipedia">Wikipédia</button>
+    <!-- Onglets (Résultat, Résumé, Wikipédia) -->
+    <div id="tabs" class="tabs-container" style="display:none;">
+        <button id="result-tab" class="tab active">Résultats</button>
+        <button id="summary-tab" class="tab">Résumé</button>
+        <button id="wikipedia-tab" class="tab">Voir sur Wikipédia</button>
     </div>
 
-    <!-- Contenu des résultats -->
-    <div id="content">
-        <div id="result-container"></div>
-        <div id="summary-container" class="hidden">
-            <p>Non disponible</p>
-        </div>
-    </div>
+    <!-- Contenu des onglets -->
+    <div id="results" class="content" style="display:none;"></div>
+    <div id="summary" class="content" style="display:none;">Non disponible</div>
 
-    <!-- Flèche retour en haut -->
-    <button id="back-to-top" class="hidden">⬆️</button>
+    <!-- Version en bas à gauche -->
+    <div id="version">Version 1.0.0</div>
 
     <script src="script.js"></script>
 </body>
